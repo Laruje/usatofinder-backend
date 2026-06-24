@@ -71,6 +71,11 @@ class SubitoScraper(BaseScraper):
 
                 ad_id = ad.get("urn", title[:12])
 
+                date = None
+                dates = ad.get("dates", {})
+                if dates:
+                    date = dates.get("display", dates.get("display_iso8601", ""))
+
                 listings.append(ListingSchema(
                     id=str(ad_id),
                     title=title,
@@ -79,6 +84,7 @@ class SubitoScraper(BaseScraper):
                     url=url,
                     platform=self.platform,
                     location=location,
+                    date=date,
                 ))
             except Exception as e:
                 logger.debug("Subito parse error: %s", e)
