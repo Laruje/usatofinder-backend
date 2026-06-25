@@ -6,6 +6,7 @@ from contextlib import asynccontextmanager
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, HTTPException
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
 from database import Base, engine, get_db
@@ -32,6 +33,11 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="UsatoFinder API", version="1.0.0", lifespan=lifespan)
+
+
+@app.get("/privacy-policy.html")
+async def privacy_policy():
+    return FileResponse("privacy-policy.html", media_type="text/html")
 
 
 @app.post("/api/search")
