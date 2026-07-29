@@ -35,6 +35,11 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="UsatoFinder API", version="1.0.0", lifespan=lifespan)
 
 
+@app.get("/")
+async def home():
+    return FileResponse("index.html", media_type="text/html")
+
+
 @app.get("/privacy-policy.html")
 async def privacy_policy():
     return FileResponse("privacy-policy.html", media_type="text/html")
