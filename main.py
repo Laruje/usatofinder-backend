@@ -40,6 +40,11 @@ async def privacy_policy():
     return FileResponse("privacy-policy.html", media_type="text/html")
 
 
+@app.get("/app-ads.txt")
+async def app_ads_txt():
+    return FileResponse("app-ads.txt", media_type="text/plain")
+
+
 @app.post("/api/search")
 async def search(request: SearchRequest):
     listings = await search_all(request.query, request.platforms)
