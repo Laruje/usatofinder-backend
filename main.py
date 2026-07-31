@@ -35,17 +35,22 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="UsatoFinder API", version="1.0.0", lifespan=lifespan)
 
 
-@app.get("/")
+@app.api_route("/", methods=["GET", "HEAD"])
 async def home():
     return FileResponse("index.html", media_type="text/html")
 
 
-@app.get("/privacy-policy.html")
+@app.api_route("/robots.txt", methods=["GET", "HEAD"])
+async def robots_txt():
+    return FileResponse("robots.txt", media_type="text/plain")
+
+
+@app.api_route("/privacy-policy.html", methods=["GET", "HEAD"])
 async def privacy_policy():
     return FileResponse("privacy-policy.html", media_type="text/html")
 
 
-@app.get("/app-ads.txt")
+@app.api_route("/app-ads.txt", methods=["GET", "HEAD"])
 async def app_ads_txt():
     return FileResponse("app-ads.txt", media_type="text/plain")
 
